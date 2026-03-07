@@ -29,7 +29,7 @@
             min-height: 100vh;
         }
 
-        /* --- NEW CLASH ANIMATION STYLES --- */
+        /* --- CLASH ANIMATION STYLES --- */
         .clash-screen {
             position: fixed; inset: 0;
             background: rgba(0, 0, 0, 0.95);
@@ -42,26 +42,14 @@
             transition: opacity 0.3s ease;
         }
         
-        .clash-element {
-            position: absolute;
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
+        .clash-element { position: absolute; opacity: 0; display: flex; align-items: center; justify-content: center; }
         .clash-logo { width: 250px; height: 250px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
         
         .clash-vs-text {
-            font-size: 8rem;
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
+            font-size: 8rem; font-weight: 900; font-style: italic; text-transform: uppercase;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(255, 81, 47, 0.8));
-            letter-spacing: -5px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(255, 81, 47, 0.8)); letter-spacing: -5px;
         }
 
         @keyframes slamFade {
@@ -81,12 +69,10 @@
             40% { transform: translate(10px, -10px); }
             50% { transform: translate(0, 0); }
         }
-        /* ---------------------------------- */
 
         /* --- LOADING SCREEN STYLES --- */
         .loading-screen {
-            position: fixed; inset: 0;
-            background: var(--bg-dark);
+            position: fixed; inset: 0; background: var(--bg-dark);
             background-image: radial-gradient(circle at center, #1a1025 0%, #07080a 100%);
             z-index: 9999; display: flex; flex-direction: column;
             align-items: center; justify-content: center;
@@ -108,20 +94,47 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: pulse-glow 2s infinite;
         }
         
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
-        }
-        /* --------------------------------- */
+        @keyframes pulse-glow { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
 
-        .header-container { position: relative; max-width: 600px; margin: 0 auto; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+        /* --- HEADER & NAVIGATION --- */
+        .header-container { position: relative; max-width: 600px; margin: 0 auto; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; z-index: 50; }
         h1 { font-size: 2rem; font-weight: 900; margin: 0; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
-        .refresh-btn { position: absolute; right: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer; backdrop-filter: blur(4px); display: flex; align-items: center; gap: 5px; transition: all 0.2s ease; font-family: 'Outfit', sans-serif; }
+        
+        /* Dropdown Menu Styles */
+        .more-wrapper { position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+        .more-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer; backdrop-filter: blur(4px); display: flex; align-items: center; gap: 5px; transition: all 0.2s ease; font-family: 'Outfit', sans-serif; }
+        .more-btn:hover { background: rgba(255,255,255,0.1); }
+        .more-btn:active { transform: scale(0.95); }
+        
+        .dropdown-menu {
+            position: absolute; top: calc(100% + 10px); left: 0;
+            background: rgba(24, 25, 30, 0.95); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 10px 0; min-width: 160px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); backdrop-filter: blur(15px);
+            opacity: 0; visibility: hidden; transform: translateY(-10px);
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .menu-title {
+            padding: 5px 15px 10px 15px; font-size: 0.7rem; color: var(--text-muted);
+            font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+            border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 5px;
+        }
+        .menu-item {
+            display: flex; align-items: center; padding: 10px 15px;
+            color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 600;
+            transition: background 0.2s, color 0.2s;
+        }
+        .menu-item:hover { background: rgba(255,255,255,0.05); color: var(--accent-secondary); }
+
+        .refresh-btn { position: absolute; right: 0; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer; backdrop-filter: blur(4px); display: flex; align-items: center; gap: 5px; transition: all 0.2s ease; font-family: 'Outfit', sans-serif; }
         .refresh-btn:hover { background: rgba(255,255,255,0.1); }
-        .refresh-btn:active { transform: scale(0.95); }
+        .refresh-btn:active { transform: translateY(-50%) scale(0.95); }
+        
         .last-updated { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px; font-weight: 500; }
 
-        .date-slider-container { max-width: 600px; margin: 0 auto 20px auto; position: relative; }
+        /* --- DATE SLIDER & GAME CARDS --- */
+        .date-slider-container { max-width: 600px; margin: 0 auto 20px auto; position: relative; z-index: 10; }
         .date-slider { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
         .date-slider::-webkit-scrollbar { display: none; }
         .date-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-muted); padding: 10px 20px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; align-items: center; gap: 2px; backdrop-filter: blur(10px); }
@@ -143,6 +156,7 @@
         .score { font-size: 2.6rem; font-weight: 900; line-height: 1; margin-top: 4px; }
         .vs { font-size: 1.2rem; color: rgba(255,255,255,0.2); font-weight: 800; }
 
+        /* --- MODALS & TABLES --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
         .modal-overlay.show { display: flex; opacity: 1; }
         .modal-content { background: linear-gradient(180deg, #18191e 0%, #101115 100%); width: 92%; max-width: 800px; max-height: 85vh; border-radius: 24px; padding: 25px; position: relative; box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.9); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; }
@@ -187,9 +201,20 @@
     </div>
 
     <div class="header-container">
+        <div class="more-wrapper">
+            <button id="moreBtn" class="more-btn" onclick="toggleMenu(event)">☰ More</button>
+            <div id="moreMenu" class="dropdown-menu">
+                <div class="menu-title">More Leagues</div>
+                <a href="https://vewertyploik.github.io/Live-MLB-Tracker/" target="_blank" class="menu-item">MLB</a>
+                <a href="https://vewertyploik.github.io/Live-NHL-Tracker/" target="_blank" class="menu-item">NHL</a>
+            </div>
+        </div>
+        
         <h1>Live NBA Tracker</h1>
+        
         <button id="refreshBtn" class="refresh-btn" onclick="forceRefresh()">↻ Sync</button>
     </div>
+    
     <div id="lastUpdated" class="last-updated">Connecting to API...</div>
     
     <div class="date-slider-container">
@@ -209,6 +234,21 @@
     </div>
 
     <script>
+        // --- DROPDOWN MENU LOGIC ---
+        function toggleMenu(e) {
+            e.stopPropagation(); // Prevents the window click listener from firing immediately
+            document.getElementById('moreMenu').classList.toggle('show');
+        }
+
+        // Close the menu if you click outside of it
+        window.addEventListener('click', function(e) {
+            const menu = document.getElementById('moreMenu');
+            if (menu.classList.contains('show') && !e.target.closest('.more-wrapper')) {
+                menu.classList.remove('show');
+            }
+        });
+        // ---------------------------
+
         // --- RANDOMIZED LOADING SCREEN LOGIC ---
         const allNbaTeams = [
             'atl', 'bos', 'bkn', 'cha', 'chi', 'cle', 'dal', 'den', 'det', 'gs', 
@@ -365,18 +405,15 @@
             }
         }
 
-        // --- UPDATED OPEN MODAL LOGIC WITH CLASH ANIMATION ---
         async function openModal(gameId, title) {
             activeGameId = gameId;
             document.body.style.overflow = 'hidden'; 
 
-            // Find the game data to get logos
             const game = latestEvents.find(g => g.id === gameId);
             const comp = game.competitions[0];
             const awayTeam = comp.competitors.find(c => c.homeAway === 'away').team;
             const homeTeam = comp.competitors.find(c => c.homeAway === 'home').team;
 
-            // Setup and trigger Clash Screen
             const clashScreen = document.getElementById('clashScreen');
             const el1 = document.getElementById('clashEl1');
             const el2 = document.getElementById('clashEl2');
@@ -385,14 +422,12 @@
             document.getElementById('clashAwayLogo').src = awayTeam.logo;
             document.getElementById('clashHomeLogo').src = homeTeam.logo;
 
-            // Reset animations
             el1.style.animation = 'none';
             el2.style.animation = 'none';
             el3.style.animation = 'none';
             clashScreen.style.opacity = '1';
             clashScreen.style.display = 'flex';
 
-            // Sequence the animations (1 second each)
             setTimeout(() => { 
                 el1.style.animation = 'slamFade 1s forwards'; 
                 clashScreen.style.animation = 'screenShake 0.3s ease-in-out';
@@ -400,7 +435,7 @@
             
             setTimeout(() => { 
                 el2.style.animation = 'slamFade 1s forwards'; 
-                clashScreen.style.animation = 'none'; // reset shake
+                clashScreen.style.animation = 'none'; 
                 setTimeout(() => clashScreen.style.animation = 'screenShake 0.3s ease-in-out', 10);
             }, 1000);
             
@@ -410,13 +445,11 @@
                 setTimeout(() => clashScreen.style.animation = 'screenShake 0.3s ease-in-out', 10);
             }, 2000);
 
-            // Fetch the stats in the background while animation plays
             document.getElementById('modalHeader').innerText = title;
             document.getElementById('modalBody').innerHTML = '<div id="loadingMsg">Fetching full roster stats...</div>';
             
             await fetchBoxScoreData(gameId);
 
-            // Reveal the actual modal perfectly after 3 seconds
             setTimeout(() => {
                 clashScreen.style.opacity = '0';
                 setTimeout(() => { clashScreen.style.display = 'none'; }, 300);
