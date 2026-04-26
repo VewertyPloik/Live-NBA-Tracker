@@ -24,7 +24,7 @@
             background-attachment: fixed;
             color: var(--text-main);
             margin: 0;
-            padding: 20px 15px;
+            padding: 20px 15px 80px 15px; 
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
         }
@@ -100,7 +100,6 @@
         .header-container { position: relative; max-width: 600px; margin: 0 auto; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; z-index: 50; }
         h1 { font-size: 2rem; font-weight: 900; margin: 0; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
         
-        /* Dropdown Menu Styles */
         .more-wrapper { position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
         .more-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer; backdrop-filter: blur(4px); display: flex; align-items: center; gap: 5px; transition: all 0.2s ease; font-family: 'Outfit', sans-serif; }
         .more-btn:hover { background: rgba(255,255,255,0.1); }
@@ -133,6 +132,50 @@
         
         .last-updated { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px; font-weight: 500; }
 
+        /* --- TABS --- */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- BOTTOM NAVIGATION --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 16, 20, 0.85);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-around; padding: 12px 0 20px 0;
+            z-index: 100;
+        }
+        .nav-item {
+            background: transparent; border: none; color: var(--text-muted);
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif; flex: 1;
+        }
+        .nav-item:hover { color: #fff; }
+        .nav-item.active { color: var(--accent-secondary); transform: translateY(-3px); }
+        .nav-item.active .nav-icon { stroke: var(--accent-secondary); filter: drop-shadow(0 0 8px rgba(240, 152, 25, 0.6)); }
+        
+        /* SVG Icon styling */
+        .nav-icon { width: 24px; height: 24px; transition: all 0.3s ease; stroke: var(--text-muted); }
+
+        /* --- HOME / NEWS CARDS --- */
+        .news-card {
+            background: var(--card-bg); border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--border-color); cursor: pointer;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            margin-bottom: 20px;
+        }
+        .news-card:hover { border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+        .news-card:active { transform: scale(0.98); }
+        .news-image { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .news-content { padding: 18px; }
+        .news-tag { display: inline-block; background: rgba(255, 81, 47, 0.15); color: var(--accent-secondary); padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .news-date { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-left: 8px; }
+        .news-title { font-size: 1.2rem; font-weight: 800; margin: 0 0 10px 0; line-height: 1.3; color: var(--text-main); }
+        .news-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0; font-weight: 500; }
+
         /* --- DATE SLIDER & GAME CARDS --- */
         .date-slider-container { max-width: 600px; margin: 0 auto 20px auto; position: relative; z-index: 10; }
         .date-slider { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
@@ -148,12 +191,15 @@
         .game-card:active { transform: scale(0.98); background: rgba(30, 32, 38, 0.8); }
 
         .status { text-align: center; font-size: 0.85rem; font-weight: 800; color: var(--live-red); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 2px; }
+        .status.post-game { color: var(--text-muted); }
+        .status.pre-game { color: var(--text-main); }
         .teams-container { display: flex; justify-content: space-between; align-items: center; }
         .team { display: flex; flex-direction: column; align-items: center; width: 40%; gap: 6px; }
         .record { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 2px; background: rgba(0,0,0,0.3); padding: 3px 8px; border-radius: 10px; }
         .logo { width: 64px; height: 64px; object-fit: contain; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.4)); margin-bottom: 4px; }
         .team-name { font-size: 1.1rem; text-align: center; font-weight: 800; }
         .score { font-size: 2.6rem; font-weight: 900; line-height: 1; margin-top: 4px; }
+        .score.dimmed { color: var(--text-muted); }
         .vs { font-size: 1.2rem; color: rgba(255,255,255,0.2); font-weight: 800; }
 
         /* --- MODALS & TABLES --- */
@@ -191,7 +237,7 @@
 
     <div id="loadingScreen" class="loading-screen">
         <div class="logo-cycler"><img id="dynamicTeamLogo" src="" alt="Loading..."></div>
-        <div class="maker-tag">Made By Vewerty Ploik</div>
+        <div class="maker-tag"> Made By Vewerty Ploik </div>
     </div>
 
     <div id="clashScreen" class="clash-screen">
@@ -205,8 +251,8 @@
             <button id="moreBtn" class="more-btn" onclick="toggleMenu(event)">☰ More</button>
             <div id="moreMenu" class="dropdown-menu">
                 <div class="menu-title">More Leagues</div>
-                <a href="https://vewertyploik.github.io/Live-MLB-Tracker/" target="_blank" class="menu-item">MLB</a>
-                <a href="https://vewertyploik.github.io/Live-NHL-Tracker/" target="_blank" class="menu-item">NHL</a>
+                <a href="#" class="menu-item">MLB</a>
+                <a href="#" class="menu-item">NHL</a>
             </div>
         </div>
         
@@ -217,11 +263,40 @@
     
     <div id="lastUpdated" class="last-updated">Connecting to API...</div>
     
-    <div class="date-slider-container">
-        <div class="date-slider" id="dateSlider"></div>
+    <div id="homeTab" class="tab-content active">
+        <div class="container" id="newsContainer">
+            <div id="loadingMsg">Fetching important game updates...</div>
+        </div>
     </div>
-    
-    <div class="container" id="tracker"></div>
+
+    <div id="scheduleTab" class="tab-content">
+        <div class="date-slider-container">
+            <div class="date-slider" id="dateSlider"></div>
+        </div>
+        <div class="container" id="tracker"></div>
+    </div>
+
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('home')" id="btnHome">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path>
+                <path d="M7 7h10"></path>
+                <path d="M7 12h10"></path>
+                <path d="M7 17h6"></path>
+            </svg>
+            <span>Updates</span>
+        </button>
+
+        <button class="nav-item" onclick="switchTab('schedule')" id="btnSchedule">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Scores</span>
+        </button>
+    </nav>
 
     <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -236,18 +311,27 @@
     <script>
         // --- DROPDOWN MENU LOGIC ---
         function toggleMenu(e) {
-            e.stopPropagation(); // Prevents the window click listener from firing immediately
+            e.stopPropagation();
             document.getElementById('moreMenu').classList.toggle('show');
         }
 
-        // Close the menu if you click outside of it
         window.addEventListener('click', function(e) {
             const menu = document.getElementById('moreMenu');
             if (menu.classList.contains('show') && !e.target.closest('.more-wrapper')) {
                 menu.classList.remove('show');
             }
         });
-        // ---------------------------
+        
+        // --- TAB SWITCHING LOGIC ---
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+            
+            if(tabName === 'home') document.getElementById('btnHome').classList.add('active');
+            if(tabName === 'schedule') document.getElementById('btnSchedule').classList.add('active');
+        }
 
         // --- RANDOMIZED LOADING SCREEN LOGIC ---
         const allNbaTeams = [
@@ -277,10 +361,16 @@
             clearInterval(logoInterval);
             document.getElementById('loadingScreen').classList.add('hidden');
             setTimeout(() => { document.getElementById('loadingScreen').style.display = 'none'; }, 600);
-        }, 5000);
-        // -----------------------------
+            
+            // Initialize App Data
+            buildDateSlider();
+            fetchGames();
+            fetchNews();
+            startAutoRefresh();
+        }, 3000); 
 
         const BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard';
+        const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news';
         
         let boxScoreCache = {};
         let activeGameId = null; 
@@ -352,6 +442,62 @@
             startAutoRefresh(); 
         }
 
+        /* --- FETCH & FILTER HIGHER SIGNAL NEWS --- */
+        async function fetchNews() {
+            try {
+                const res = await fetch(NEWS_URL);
+                const data = await res.json();
+                renderNews(data.articles || []);
+            } catch (err) {
+                console.error("Error fetching news:", err);
+                document.getElementById('newsContainer').innerHTML = '<div id="loadingMsg">Unable to load news at this time.</div>';
+            }
+        }
+
+        function renderNews(articles) {
+            const container = document.getElementById('newsContainer');
+            container.innerHTML = '';
+
+            if (articles.length === 0) {
+                container.innerHTML = '<div id="loadingMsg">No recent news found.</div>';
+                return;
+            }
+
+            // FILTER: Only keep high-signal "important" game/roster updates
+            const keywords = ['score', 'win', 'loss', 'beat', 'points', 'stats', 'recap', 'highlights', 'trade', 'injury', 'draft', 'finals', 'playoffs', 'championship'];
+            
+            let importantArticles = articles.filter(article => {
+                const textToCheck = (article.headline + " " + article.description).toLowerCase();
+                return keywords.some(kw => textToCheck.includes(kw));
+            });
+
+            // Fallback just in case the filter clears out everything
+            if (importantArticles.length === 0) importantArticles = articles.slice(0, 3);
+
+            // Sort newest first
+            importantArticles.sort((a, b) => new Date(b.published) - new Date(a.published));
+
+            importantArticles.forEach(article => {
+                const imgUrl = (article.images && article.images.length > 0) ? article.images[0].url : 'https://a.espncdn.com/i/teamlogos/nba/500/nba.png';
+                const pubDate = new Date(article.published).toLocaleString('en-US', { month: 'short', day: 'numeric' });
+                
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.onclick = () => window.open(article.links.web.href, '_blank');
+
+                card.innerHTML = `
+                    <img class="news-image" src="${imgUrl}" alt="NBA News">
+                    <div class="news-content">
+                        <span class="news-tag">Game Impact</span>
+                        <span class="news-date">${pubDate}</span>
+                        <h3 class="news-title">${article.headline}</h3>
+                        <p class="news-desc">${article.description}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
         async function fetchGames() {
             try {
                 const dateQuery = formatAPIString(selectedDateObj);
@@ -384,6 +530,7 @@
             btn.innerHTML = '↻ Syncing...';
             btn.style.color = '#f09819';
             await fetchGames();
+            await fetchNews();
             btn.innerHTML = '↻ Sync';
             btn.style.color = '';
             startAutoRefresh();
@@ -403,6 +550,47 @@
             } catch (err) {
                 console.error("Error fetching box score:", err);
             }
+        }
+
+        /* --- COMPLETED RENDER MAIN SCREEN SCRIPT --- */
+        function renderMainScreen() {
+            const tracker = document.getElementById('tracker');
+            
+            if (!latestEvents || latestEvents.length === 0) {
+                tracker.innerHTML = '<div id="loadingMsg">No games scheduled for this date.</div>';
+                return;
+            }
+            
+            tracker.innerHTML = '';
+            
+            latestEvents.forEach(game => {
+                const comp = game.competitions[0];
+                const away = comp.competitors.find(c => c.homeAway === 'away');
+                const home = comp.competitors.find(c => c.homeAway === 'home');
+                const status = game.status.type.shortDetail;
+                const state = game.status.type.state; 
+
+                let statusClass = state === 'in' ? 'live-red' : (state === 'post' ? 'post-game' : 'pre-game');
+
+                tracker.innerHTML += `
+                    <div class="game-card" onclick="openModal('${game.id}', '${away.team.abbreviation} vs ${home.team.abbreviation}')">
+                        <div class="status ${statusClass}">${status}</div>
+                        <div class="teams-container">
+                            <div class="team">
+                                <img class="logo" src="${away.team.logo}" alt="${away.team.abbreviation}">
+                                <div class="team-name">${away.team.abbreviation}</div>
+                                <div class="score ${state === 'pre' ? 'dimmed' : ''}">${away.score !== undefined ? away.score : '-'}</div>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <img class="logo" src="${home.team.logo}" alt="${home.team.abbreviation}">
+                                <div class="team-name">${home.team.abbreviation}</div>
+                                <div class="score ${state === 'pre' ? 'dimmed' : ''}">${home.score !== undefined ? home.score : '-'}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
         async function openModal(gameId, title) {
@@ -460,185 +648,107 @@
             }, 3000);
         }
 
+        /* --- COMPLETED MODAL DATA & TABLE LOGIC --- */
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('show');
+            document.body.style.overflow = 'auto';
             activeGameId = null;
-            document.body.style.overflow = 'auto'; 
-        }
-
-        function handleSort(teamType, statKey) {
-            if (currentSort[teamType].column === statKey) {
-                currentSort[teamType].desc = !currentSort[teamType].desc;
-            } else {
-                currentSort[teamType].column = statKey;
-                currentSort[teamType].desc = true;
-            }
-            renderModalContent();
-        }
-
-        function getNumericSortValue(statsArray, labels, statKey) {
-            const index = labels.indexOf(statKey);
-            const rawValue = index > -1 ? statsArray[index] : '0';
-            if (statKey === 'FG' || statKey === '3PT' || statKey === 'FT') {
-                const parts = String(rawValue).split('-');
-                if (parts.length === 2) {
-                    const att = parseInt(parts[1]);
-                    return att > 0 ? (parseInt(parts[0]) / att) : 0;
-                }
-                return 0;
-            }
-            return parseFloat(rawValue) || 0;
-        }
-
-        function formatDisplayPercentage(madeAttString) {
-            if (!madeAttString || madeAttString === '-') return '-';
-            const parts = madeAttString.split('-');
-            if (parts.length !== 2) return madeAttString;
-            const att = parseInt(parts[1]);
-            return att === 0 ? '0%' : Math.round((parseInt(parts[0]) / att) * 100) + '%';
-        }
-
-        function generateBoxScoreTable(teamBox, teamType) {
-            if (!teamBox || !teamBox.statistics || !teamBox.statistics[0]) {
-                return '<div id="loadingMsg">Roster data not available yet.</div>';
-            }
-            const labels = teamBox.statistics[0].labels; 
-            let roster = teamBox.statistics[0].athletes.filter(a => !a.didNotPlay && a.stats);
-
-            if (roster.length === 0) return '<div id="loadingMsg">No stats recorded yet.</div>';
-
-            const sortInfo = currentSort[teamType];
-            roster.sort((a, b) => {
-                const valA = getNumericSortValue(a.stats, labels, sortInfo.column);
-                const valB = getNumericSortValue(b.stats, labels, sortInfo.column);
-                if (valA > valB) return sortInfo.desc ? -1 : 1;
-                if (valA < valB) return sortInfo.desc ? 1 : -1;
-                return 0;
-            });
-
-            let headersHTML = '<th>Player</th>';
-            STAT_COLUMNS.forEach(col => {
-                const isActive = sortInfo.column === col.key;
-                const arrow = isActive ? (sortInfo.desc ? ' ▾' : ' ▴') : '';
-                headersHTML += `<th class="${isActive ? 'active-sort' : ''}" onclick="handleSort('${teamType}', '${col.key}')">${col.label}${arrow}</th>`;
-            });
-
-            let html = `<div class="table-container" id="scroll-container-${teamType}">
-                <table><thead><tr>${headersHTML}</tr></thead><tbody>`;
-
-            roster.forEach(player => {
-                const stats = player.stats;
-                const getStat = (name) => {
-                    const index = labels.indexOf(name);
-                    return index > -1 ? stats[index] : '-';
-                };
-                
-                const rowClass = player.starter ? 'starter' : '';
-                const position = player.athlete.position ? player.athlete.position.abbreviation : '';
-
-                html += `<tr class="${rowClass}">
-                    <td>${player.athlete.shortName} <span class="player-pos">${position}</span></td>
-                    <td class="${sortInfo.column === 'PTS' ? 'active-sort' : ''}">${getStat('PTS')}</td>
-                    <td class="${sortInfo.column === 'AST' ? 'active-sort' : ''}">${getStat('AST')}</td>
-                    <td class="${sortInfo.column === 'REB' ? 'active-sort' : ''}">${getStat('REB')}</td>
-                    <td class="${sortInfo.column === 'STL' ? 'active-sort' : ''}">${getStat('STL')}</td>
-                    <td class="${sortInfo.column === 'BLK' ? 'active-sort' : ''}">${getStat('BLK')}</td>
-                    <td class="${sortInfo.column === 'FG' ? 'active-sort' : ''}">${formatDisplayPercentage(getStat('FG'))}</td>
-                    <td class="${sortInfo.column === '3PT' ? 'active-sort' : ''}">${formatDisplayPercentage(getStat('3PT'))}</td>
-                    <td class="${sortInfo.column === 'FT' ? 'active-sort' : ''}">${formatDisplayPercentage(getStat('FT'))}</td>
-                    <td class="${sortInfo.column === 'MIN' ? 'active-sort' : ''}">${getStat('MIN')}</td>
-                </tr>`;
-            });
-            return html + `</tbody></table></div>`;
         }
 
         function renderModalContent() {
-            if (!activeGameId || !boxScoreCache[activeGameId]) return;
-            const game = latestEvents.find(g => g.id === activeGameId);
-            if (!game) return;
+            if (!activeGameId) return;
+            const container = document.getElementById('modalBody');
+            const data = boxScoreCache[activeGameId];
 
-            const comp = game.competitions[0];
-            const awayTeam = comp.competitors.find(c => c.homeAway === 'away');
-            const homeTeam = comp.competitors.find(c => c.homeAway === 'home');
-
-            const awayBox = boxScoreCache[activeGameId].find(t => t.team.abbreviation === awayTeam.team.abbreviation);
-            const homeBox = boxScoreCache[activeGameId].find(t => t.team.abbreviation === homeTeam.team.abbreviation);
-
-            const awayScroll = document.getElementById('scroll-container-away')?.scrollLeft || 0;
-            const homeScroll = document.getElementById('scroll-container-home')?.scrollLeft || 0;
-
-            document.getElementById('modalBody').innerHTML = `
-                <div class="team-box-title">${awayTeam.team.name}</div>
-                ${generateBoxScoreTable(awayBox, 'away')}
-                <div class="team-box-title" style="margin-top: 35px;">${homeTeam.team.name}</div>
-                ${generateBoxScoreTable(homeBox, 'home')}
-            `;
-
-            if (document.getElementById('scroll-container-away')) document.getElementById('scroll-container-away').scrollLeft = awayScroll;
-            if (document.getElementById('scroll-container-home')) document.getElementById('scroll-container-home').scrollLeft = homeScroll;
-        }
-
-        function renderMainScreen() {
-            const container = document.getElementById('tracker');
-            let validGames = latestEvents;
-
-            validGames.sort((a, b) => {
-                const stateA = a.status.type.state;
-                const stateB = b.status.type.state;
-                if (stateA === 'in' && stateB !== 'in') return -1;
-                if (stateA !== 'in' && stateB === 'in') return 1;
-                return new Date(b.date) - new Date(a.date);
-            });
-
-            if (validGames.length === 0) {
-                container.innerHTML = '<div id="loadingMsg">No games scheduled for this date.</div>';
+            if (!data) {
+                container.innerHTML = '<div id="loadingMsg">Box score not available yet.</div>';
                 return;
             }
 
-            let newHTML = '';
-            validGames.forEach(game => {
-                const comp = game.competitions[0];
-                const awayTeam = comp.competitors.find(c => c.homeAway === 'away');
-                const homeTeam = comp.competitors.find(c => c.homeAway === 'home');
+            const game = latestEvents.find(g => g.id === activeGameId);
+            const comp = game.competitions[0];
+            const awayTeamInfo = comp.competitors.find(c => c.homeAway === 'away').team;
+            const homeTeamInfo = comp.competitors.find(c => c.homeAway === 'home').team;
 
-                let gameStatus = game.status.type.detail;
-                if (game.status.type.state === 'in') {
-                    gameStatus = `<span style="display:inline-block; width:8px; height:8px; background:var(--live-red); border-radius:50%; margin-right:5px; box-shadow: 0 0 8px var(--live-red); animation: pulse 1.5s infinite;"></span> Q${game.status.period} - ${game.status.displayClock}`;
-                }
+            const awayData = data.find(team => team.team.id === awayTeamInfo.id);
+            const homeData = data.find(team => team.team.id === homeTeamInfo.id);
+
+            container.innerHTML = `
+                <div class="team-box-title">
+                    <img src="${awayTeamInfo.logo}" style="width:24px;height:24px;object-fit:contain;">
+                    ${awayTeamInfo.displayName}
+                </div>
+                ${generateTableHTML(awayData, 'away')}
                 
-                const awayRecord = awayTeam.records && awayTeam.records[0] ? awayTeam.records[0].summary : "0-0";
-                const homeRecord = homeTeam.records && homeTeam.records[0] ? homeTeam.records[0].summary : "0-0";
-
-                const titleText = `${awayTeam.team.abbreviation} @ ${homeTeam.team.abbreviation}`;
-
-                newHTML += `
-                    <div class="game-card" onclick="openModal('${game.id}', '${titleText}')">
-                        <div class="status">${gameStatus}</div>
-                        <div class="teams-container">
-                            <div class="team">
-                                <div class="record">${awayRecord}</div>
-                                <img class="logo" src="${awayTeam.team.logo}" alt="${awayTeam.team.name}">
-                                <div class="team-name">${awayTeam.team.abbreviation}</div>
-                                <div class="score">${awayTeam.score !== "0" || game.status.type.state !== 'pre' ? awayTeam.score : "-"}</div>
-                            </div>
-                            <div class="vs">VS</div>
-                            <div class="team">
-                                <div class="record">${homeRecord}</div>
-                                <img class="logo" src="${homeTeam.team.logo}" alt="${homeTeam.team.name}">
-                                <div class="team-name">${homeTeam.team.abbreviation}</div>
-                                <div class="score">${homeTeam.score !== "0" || game.status.type.state !== 'pre' ? homeTeam.score : "-"}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = newHTML;
+                <div class="team-box-title">
+                    <img src="${homeTeamInfo.logo}" style="width:24px;height:24px;object-fit:contain;">
+                    ${homeTeamInfo.displayName}
+                </div>
+                ${generateTableHTML(homeData, 'home')}
+            `;
         }
 
-        buildDateSlider();
-        fetchGames();
-        startAutoRefresh();
+        function generateTableHTML(teamData, side) {
+            if (!teamData || !teamData.statistics || teamData.statistics.length === 0) return '<div id="loadingMsg">No stats available</div>';
+            
+            const statsObj = teamData.statistics[0];
+            const labels = statsObj.labels; 
+            const athletes = statsObj.athletes;
+
+            let html = '<div class="table-container"><table><thead><tr><th>Player</th>';
+            
+            STAT_COLUMNS.forEach(col => {
+                const isActive = currentSort[side].column === col.key;
+                const arrow = isActive ? (currentSort[side].desc ? ' ↓' : ' ↑') : '';
+                html += `<th class="${isActive ? 'active-sort' : ''}" onclick="handleSort('${side}', '${col.key}')">${col.label}${arrow}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+
+            let playerRows = athletes.map(ath => {
+                const p = ath.athlete;
+                const stats = ath.stats; 
+                let rowData = { name: p.shortName, pos: p.position ? p.position.abbreviation : '', isStarter: ath.starter };
+                
+                STAT_COLUMNS.forEach(col => {
+                    const labelIndex = labels.indexOf(col.key);
+                    rowData[col.key] = labelIndex !== -1 ? stats[labelIndex] : '-';
+                });
+                return rowData;
+            });
+
+            // Sorting
+            const sortKey = currentSort[side].column;
+            const sortDesc = currentSort[side].desc;
+            playerRows.sort((a, b) => {
+                let valA = parseFloat(a[sortKey]) || 0;
+                let valB = parseFloat(b[sortKey]) || 0;
+                if (valA < valB) return sortDesc ? 1 : -1;
+                if (valA > valB) return sortDesc ? -1 : 1;
+                return 0;
+            });
+
+            playerRows.forEach(p => {
+                html += `<tr class="${p.isStarter ? 'starter' : ''}">
+                    <td>${p.name}<span class="player-pos">${p.pos}</span></td>`;
+                STAT_COLUMNS.forEach(col => {
+                    html += `<td>${p[col.key]}</td>`;
+                });
+                html += `</tr>`;
+            });
+
+            html += '</tbody></table></div>';
+            return html;
+        }
+
+        function handleSort(side, column) {
+            if (currentSort[side].column === column) {
+                currentSort[side].desc = !currentSort[side].desc;
+            } else {
+                currentSort[side].column = column;
+                currentSort[side].desc = true;
+            }
+            renderModalContent();
+        }
     </script>
 </body>
 </html>
