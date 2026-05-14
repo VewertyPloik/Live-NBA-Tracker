@@ -176,6 +176,11 @@
         .news-title { font-size: 1.2rem; font-weight: 800; margin: 0 0 10px 0; line-height: 1.3; color: var(--text-main); }
         .news-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0; font-weight: 500; }
 
+        /* --- LARGER NEWS CARDS FOR HOME TAB --- */
+        .home-news-card .news-image { height: 220px; }
+        .home-news-card .news-title { font-size: 1.5rem; }
+        .home-news-card .news-desc { font-size: 1rem; }
+
         /* --- DATE SLIDER & GAME CARDS --- */
         .date-slider-container { max-width: 600px; margin: 0 auto 20px auto; position: relative; z-index: 10; }
         .date-slider { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
@@ -263,12 +268,21 @@
     
     <div id="lastUpdated" class="last-updated">Connecting to API...</div>
     
-    <div id="homeTab" class="tab-content active">
+    <!-- Updates Tab (existing news list) -->
+    <div id="homeTab" class="tab-content">
         <div class="container" id="newsContainer">
             <div id="loadingMsg">Fetching important game updates...</div>
         </div>
     </div>
 
+    <!-- New Home Tab with games + larger news -->
+    <div id="homeTabNew" class="tab-content active">
+        <div class="container" id="homeContainer">
+            <div id="loadingMsg">Loading today's highlights...</div>
+        </div>
+    </div>
+
+    <!-- Scores Tab (schedule) -->
     <div id="scheduleTab" class="tab-content">
         <div class="date-slider-container">
             <div class="date-slider" id="dateSlider"></div>
@@ -277,7 +291,7 @@
     </div>
 
     <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home')" id="btnHome">
+        <button class="nav-item" onclick="switchTab('home')" id="btnHome">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path>
                 <path d="M7 7h10"></path>
@@ -285,6 +299,15 @@
                 <path d="M7 17h6"></path>
             </svg>
             <span>Updates</span>
+        </button>
+
+        <!-- New Home button in middle with house SVG -->
+        <button class="nav-item active" onclick="switchTab('homeNew')" id="btnHomeNew">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
         </button>
 
         <button class="nav-item" onclick="switchTab('schedule')" id="btnSchedule">
@@ -322,15 +345,32 @@
             }
         });
         
-        // --- TAB SWITCHING LOGIC ---
+        // --- TAB SWITCHING LOGIC (updated for three tabs) ---
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
             
-            document.getElementById(`${tabName}Tab`).classList.add('active');
-            
-            if(tabName === 'home') document.getElementById('btnHome').classList.add('active');
-            if(tabName === 'schedule') document.getElementById('btnSchedule').classList.add('active');
+            if(tabName === 'home') {
+                document.getElementById('homeTab').classList.add('active');
+                document.getElementById('btnHome').classList.add('active');
+                // Refresh news and optionally scroll to targeted article
+                fetchNews().then(() => {
+                    if (targetNewsHeadline) {
+                        scrollToNewsArticle(targetNewsHeadline);
+                        targetNewsHeadline = null;
+                    }
+                });
+            }
+            else if(tabName === 'homeNew') {
+                document.getElementById('homeTabNew').classList.add('active');
+                document.getElementById('btnHomeNew').classList.add('active');
+                fetchHomeData();
+            }
+            else if(tabName === 'schedule') {
+                document.getElementById('scheduleTab').classList.add('active');
+                document.getElementById('btnSchedule').classList.add('active');
+                startAutoRefresh(); // ensure refresh is running for scores
+            }
         }
 
         // --- RANDOMIZED LOADING SCREEN LOGIC ---
@@ -366,6 +406,7 @@
             buildDateSlider();
             fetchGames();
             fetchNews();
+            fetchHomeData(); // load home tab data initially
             startAutoRefresh();
         }, 3000); 
 
@@ -390,6 +431,11 @@
             { label: '3P%', key: '3PT' }, { label: 'FT%', key: 'FT' },
             { label: 'MIN', key: 'MIN' }
         ];
+
+        // Home tab data
+        let homeGames = [];
+        let homeNewsArticles = [];
+        let targetNewsHeadline = null; // used to scroll to article when switching to updates
 
         function formatAPIString(date) {
             const y = date.getFullYear();
@@ -463,7 +509,6 @@
                 return;
             }
 
-            // FILTER: Only keep high-signal "important" game/roster updates
             const keywords = ['score', 'win', 'loss', 'beat', 'points', 'stats', 'recap', 'highlights', 'trade', 'injury', 'draft', 'finals', 'playoffs', 'championship'];
             
             let importantArticles = articles.filter(article => {
@@ -471,18 +516,17 @@
                 return keywords.some(kw => textToCheck.includes(kw));
             });
 
-            // Fallback just in case the filter clears out everything
             if (importantArticles.length === 0) importantArticles = articles.slice(0, 3);
-
-            // Sort newest first
             importantArticles.sort((a, b) => new Date(b.published) - new Date(a.published));
 
-            importantArticles.forEach(article => {
+            importantArticles.forEach((article, index) => {
                 const imgUrl = (article.images && article.images.length > 0) ? article.images[0].url : 'https://a.espncdn.com/i/teamlogos/nba/500/nba.png';
                 const pubDate = new Date(article.published).toLocaleString('en-US', { month: 'short', day: 'numeric' });
                 
                 const card = document.createElement('div');
                 card.className = 'news-card';
+                card.id = 'news-' + index;
+                card.setAttribute('data-headline', article.headline);
                 card.onclick = () => window.open(article.links.web.href, '_blank');
 
                 card.innerHTML = `
@@ -496,6 +540,155 @@
                 `;
                 container.appendChild(card);
             });
+        }
+
+        function scrollToNewsArticle(headline) {
+            // Find the news card with matching headline and scroll into view
+            const cards = document.querySelectorAll('#newsContainer .news-card');
+            for (let card of cards) {
+                if (card.getAttribute('data-headline') === headline) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.style.borderColor = 'var(--accent-secondary)';
+                    setTimeout(() => { card.style.borderColor = ''; }, 2000);
+                    break;
+                }
+            }
+        }
+
+        // --- HOME TAB DATA & RENDERING ---
+        async function fetchHomeData() {
+            try {
+                // Fetch today's games
+                const todayStr = formatAPIString(new Date());
+                const gamesRes = await fetch(`${BASE_URL}?dates=${todayStr}`);
+                const gamesData = await gamesRes.json();
+                const allEvents = gamesData.events || [];
+                
+                // Sort: live games first, then upcoming (pre), ignore finished?
+                const liveAndUpcoming = allEvents.filter(e => {
+                    const state = e.status.type.state;
+                    return state === 'in' || state === 'pre';
+                });
+                // Take top 3
+                homeGames = liveAndUpcoming.slice(0, 3);
+                
+                // Fetch news for home tab
+                const newsRes = await fetch(NEWS_URL);
+                const newsData = await newsRes.json();
+                let articles = newsData.articles || [];
+                
+                const keywords = ['score', 'win', 'loss', 'beat', 'points', 'stats', 'recap', 'highlights', 'trade', 'injury', 'draft', 'finals', 'playoffs', 'championship'];
+                let importantArticles = articles.filter(a => {
+                    const t = (a.headline + " " + a.description).toLowerCase();
+                    return keywords.some(kw => t.includes(kw));
+                });
+                if (importantArticles.length < 2) importantArticles = articles.slice(0, 2);
+                importantArticles.sort((a, b) => new Date(b.published) - new Date(a.published));
+                homeNewsArticles = importantArticles.slice(0, 2);
+                
+                renderHomeScreen();
+            } catch (err) {
+                console.error("Home fetch error:", err);
+                document.getElementById('homeContainer').innerHTML = '<div id="loadingMsg">Could not load home content.</div>';
+            }
+        }
+
+        function renderHomeScreen() {
+            const container = document.getElementById('homeContainer');
+            container.innerHTML = '';
+            
+            // Games section
+            if (homeGames.length === 0) {
+                container.innerHTML = '<div id="loadingMsg">No live or upcoming games today.</div>';
+            } else {
+                homeGames.forEach(game => {
+                    const comp = game.competitions[0];
+                    const away = comp.competitors.find(c => c.homeAway === 'away');
+                    const home = comp.competitors.find(c => c.homeAway === 'home');
+                    const status = game.status.type.shortDetail;
+                    const state = game.status.type.state;
+                    let statusClass = state === 'in' ? 'live-red' : (state === 'post' ? 'post-game' : 'pre-game');
+                    
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
+                    card.style.marginBottom = '20px';
+                    card.setAttribute('data-gameid', game.id);
+                    card.onclick = () => {
+                        // Switch to Scores tab with today's date and open modal
+                        switchToScoresAndOpenModal(game.id, `${away.team.abbreviation} vs ${home.team.abbreviation}`);
+                    };
+                    
+                    card.innerHTML = `
+                        <div class="status ${statusClass}">${status}</div>
+                        <div class="teams-container">
+                            <div class="team">
+                                <img class="logo" src="${away.team.logo}" alt="${away.team.abbreviation}">
+                                <div class="team-name">${away.team.abbreviation}</div>
+                                <div class="score ${state === 'pre' ? 'dimmed' : ''}">${away.score !== undefined ? away.score : '-'}</div>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <img class="logo" src="${home.team.logo}" alt="${home.team.abbreviation}">
+                                <div class="team-name">${home.team.abbreviation}</div>
+                                <div class="score ${state === 'pre' ? 'dimmed' : ''}">${home.score !== undefined ? home.score : '-'}</div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+            
+            // News section (larger cards)
+            if (homeNewsArticles.length > 0) {
+                const newsHeader = document.createElement('div');
+                newsHeader.style.fontSize = '1.2rem';
+                newsHeader.style.fontWeight = '800';
+                newsHeader.style.margin = '10px 0 15px';
+                newsHeader.style.color = 'var(--text-main)';
+                newsHeader.innerText = 'Latest News';
+                container.appendChild(newsHeader);
+                
+                homeNewsArticles.forEach(article => {
+                    const imgUrl = (article.images && article.images.length > 0) ? article.images[0].url : 'https://a.espncdn.com/i/teamlogos/nba/500/nba.png';
+                    const pubDate = new Date(article.published).toLocaleString('en-US', { month: 'short', day: 'numeric' });
+                    
+                    const card = document.createElement('div');
+                    card.className = 'news-card home-news-card';
+                    card.style.marginBottom = '20px';
+                    card.onclick = () => {
+                        // Switch to Updates tab and scroll to this article
+                        targetNewsHeadline = article.headline;
+                        switchTab('home');
+                    };
+                    
+                    card.innerHTML = `
+                        <img class="news-image" src="${imgUrl}" alt="NBA News">
+                        <div class="news-content">
+                            <span class="news-tag">Game Impact</span>
+                            <span class="news-date">${pubDate}</span>
+                            <h3 class="news-title">${article.headline}</h3>
+                            <p class="news-desc">${article.description}</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        async function switchToScoresAndOpenModal(gameId, title) {
+            // Set selected date to today, switch to schedule tab, wait for fetch, then open modal
+            selectedDateObj = new Date();
+            // Update date slider UI
+            document.querySelectorAll('.date-btn').forEach(btn => {
+                const btnDate = new Date(btn.textContent.includes('Today') ? new Date() : btn.textContent);
+                btn.classList.remove('active');
+                if (btnDate.toDateString() === selectedDateObj.toDateString()) btn.classList.add('active');
+            });
+            
+            switchTab('schedule');
+            document.getElementById('tracker').innerHTML = '<div id="loadingMsg">Loading game...</div>';
+            await fetchGames();
+            await openModal(gameId, title);
         }
 
         async function fetchGames() {
@@ -716,7 +909,6 @@
                 return rowData;
             });
 
-            // Sorting
             const sortKey = currentSort[side].column;
             const sortDesc = currentSort[side].desc;
             playerRows.sort((a, b) => {
