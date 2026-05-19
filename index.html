@@ -24,32 +24,49 @@
             background-attachment: fixed;
             color: var(--text-main);
             margin: 0;
-            padding: 20px 15px 80px 15px; 
+            padding: 20px 15px 80px 15px;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
         }
 
-        /* --- CLASH ANIMATION STYLES --- */
         .clash-screen {
-            position: fixed; inset: 0;
+            position: fixed;
+            inset: 0;
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             z-index: 2000;
             display: none;
-            align-items: center; justify-content: center;
+            align-items: center;
+            justify-content: center;
             flex-direction: column;
             transition: opacity 0.3s ease;
         }
-        
-        .clash-element { position: absolute; opacity: 0; display: flex; align-items: center; justify-content: center; }
-        .clash-logo { width: 250px; height: 250px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
-        
+
+        .clash-element {
+            position: absolute;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clash-logo {
+            width: 250px;
+            height: 250px;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));
+        }
+
         .clash-vs-text {
-            font-size: 8rem; font-weight: 900; font-style: italic; text-transform: uppercase;
+            font-size: 8rem;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(255, 81, 47, 0.8)); letter-spacing: -5px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(255, 81, 47, 0.8));
+            letter-spacing: -5px;
         }
 
         @keyframes slamFade {
@@ -70,172 +87,626 @@
             50% { transform: translate(0, 0); }
         }
 
-        /* --- LOADING SCREEN STYLES --- */
         .loading-screen {
-            position: fixed; inset: 0; background: var(--bg-dark);
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
             background-image: radial-gradient(circle at center, #1a1025 0%, #07080a 100%);
-            z-index: 9999; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            opacity: 1; transition: opacity 0.6s ease-out, visibility 0.6s;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.6s ease-out, visibility 0.6s;
         }
-        .loading-screen.hidden { opacity: 0; visibility: hidden; }
-        .logo-cycler { width: 180px; height: 180px; animation: spin-and-pulse 2.5s infinite ease-in-out; filter: drop-shadow(0 0 25px rgba(255, 81, 47, 0.6)); }
-        .logo-cycler img { width: 100%; height: 100%; object-fit: contain; }
-        
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .logo-cycler {
+            width: 180px;
+            height: 180px;
+            animation: spin-and-pulse 2.5s infinite ease-in-out;
+            filter: drop-shadow(0 0 25px rgba(255, 81, 47, 0.6));
+        }
+
+        .logo-cycler img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
         @keyframes spin-and-pulse {
             0% { transform: scale(0.9) rotate(0deg); }
             50% { transform: scale(1.15) rotate(180deg); filter: drop-shadow(0 0 40px rgba(240, 152, 25, 0.8)); }
             100% { transform: scale(0.9) rotate(360deg); }
         }
-        
-        .maker-tag {
-            position: absolute; bottom: 50px; font-size: 1.4rem; font-weight: 900; letter-spacing: 3px;
-            text-transform: uppercase; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: pulse-glow 2s infinite;
-        }
-        
-        @keyframes pulse-glow { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
 
-        /* --- HEADER & NAVIGATION --- */
-        .header-container { position: relative; max-width: 600px; margin: 0 auto; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; z-index: 50; }
-        h1 { font-size: 2rem; font-weight: 900; margin: 0; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
-        
-        .more-wrapper { position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
-        .more-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer; backdrop-filter: blur(4px); display: flex; align-items: center; gap: 5px; transition: all 0.2s ease; font-family: 'Outfit', sans-serif; }
-        .more-btn:hover { background: rgba(255,255,255,0.1); }
+        .maker-tag {
+            position: absolute;
+            bottom: 50px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .header-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            z-index: 50;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .more-wrapper {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .more-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .more-btn:hover { background: rgba(255, 255, 255, 0.1); }
         .more-btn:active { transform: scale(0.95); }
-        
+
         .dropdown-menu {
-            position: absolute; top: calc(100% + 10px); left: 0;
-            background: rgba(24, 25, 30, 0.95); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 10px 0; min-width: 160px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6); backdrop-filter: blur(15px);
-            opacity: 0; visibility: hidden; transform: translateY(-10px);
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            background: rgba(24, 25, 30, 0.95);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 10px 0;
+            min-width: 160px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
             transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        .menu-title {
-            padding: 5px 15px 10px 15px; font-size: 0.7rem; color: var(--text-muted);
-            font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
-            border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 5px;
+
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
+
+        .menu-title {
+            padding: 5px 15px 10px 15px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 5px;
+        }
+
         .menu-item {
-            display: flex; align-items: center; padding: 10px 15px;
-            color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
             transition: background 0.2s, color 0.2s;
         }
-        .menu-item:hover { background: rgba(255,255,255,0.05); color: var(--accent-secondary); }
 
-        .refresh-btn { position: absolute; right: 0; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer; backdrop-filter: blur(4px); display: flex; align-items: center; gap: 5px; transition: all 0.2s ease; font-family: 'Outfit', sans-serif; }
-        .refresh-btn:hover { background: rgba(255,255,255,0.1); }
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-secondary);
+        }
+
+        .refresh-btn {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .refresh-btn:hover { background: rgba(255, 255, 255, 0.1); }
         .refresh-btn:active { transform: translateY(-50%) scale(0.95); }
-        
-        .last-updated { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px; font-weight: 500; }
 
-        /* --- TABS --- */
+        .last-updated {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* --- BOTTOM NAVIGATION --- */
         .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             background: rgba(15, 16, 20, 0.85);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-top: 1px solid var(--border-color);
-            display: flex; justify-content: space-around; padding: 12px 0 20px 0;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 20px 0;
             z-index: 100;
         }
-        .nav-item {
-            background: transparent; border: none; color: var(--text-muted);
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
-            font-family: 'Outfit', sans-serif; flex: 1;
-        }
-        .nav-item:hover { color: #fff; }
-        .nav-item.active { color: var(--accent-secondary); transform: translateY(-3px); }
-        .nav-item.active .nav-icon { stroke: var(--accent-secondary); filter: drop-shadow(0 0 8px rgba(240, 152, 25, 0.6)); }
-        
-        /* SVG Icon styling */
-        .nav-icon { width: 24px; height: 24px; transition: all 0.3s ease; stroke: var(--text-muted); }
 
-        /* --- HOME / NEWS CARDS --- */
+        .nav-item {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            flex: 1;
+        }
+
+        .nav-item:hover { color: #fff; }
+        .nav-item.active {
+            color: var(--accent-secondary);
+            transform: translateY(-3px);
+        }
+        .nav-item.active .nav-icon {
+            stroke: var(--accent-secondary);
+            filter: drop-shadow(0 0 8px rgba(240, 152, 25, 0.6));
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+            stroke: var(--text-muted);
+        }
+
         .news-card {
-            background: var(--card-bg); border-radius: 20px; overflow: hidden;
-            border: 1px solid var(--border-color); cursor: pointer;
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
             margin-bottom: 20px;
         }
-        .news-card:hover { border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
-        .news-card:active { transform: scale(0.98); }
-        .news-image { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
-        .news-content { padding: 18px; }
-        .news-tag { display: inline-block; background: rgba(255, 81, 47, 0.15); color: var(--accent-secondary); padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .news-date { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-left: 8px; }
-        .news-title { font-size: 1.2rem; font-weight: 800; margin: 0 0 10px 0; line-height: 1.3; color: var(--text-main); }
-        .news-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0; font-weight: 500; }
 
-        /* --- LARGER NEWS CARDS FOR HOME TAB --- */
+        .news-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        .news-card:active { transform: scale(0.98); }
+
+        .news-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .news-content { padding: 18px; }
+
+        .news-tag {
+            display: inline-block;
+            background: rgba(255, 81, 47, 0.15);
+            color: var(--accent-secondary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .news-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            line-height: 1.3;
+            color: var(--text-main);
+        }
+
+        .news-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 0;
+            font-weight: 500;
+        }
+
         .home-news-card .news-image { height: 220px; }
         .home-news-card .news-title { font-size: 1.5rem; }
         .home-news-card .news-desc { font-size: 1rem; }
 
-        /* --- DATE SLIDER & GAME CARDS --- */
-        .date-slider-container { max-width: 600px; margin: 0 auto 20px auto; position: relative; z-index: 10; }
-        .date-slider { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
-        .date-slider::-webkit-scrollbar { display: none; }
-        .date-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-muted); padding: 10px 20px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; align-items: center; gap: 2px; backdrop-filter: blur(10px); }
-        .date-btn span.day { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.8; }
-        .date-btn:active { transform: scale(0.92); }
-        .date-btn.active { background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: #fff; border-color: transparent; box-shadow: 0 8px 16px rgba(255, 81, 47, 0.3); transform: translateY(-2px); }
+        .date-slider-container {
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            position: relative;
+            z-index: 10;
+        }
 
-        .container { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-        .game-card { background: var(--card-bg); border-radius: 20px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border-color); cursor: pointer; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
-        .game-card:hover { border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+        .date-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding-bottom: 5px;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .date-slider::-webkit-scrollbar { display: none; }
+
+        .date-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            backdrop-filter: blur(10px);
+        }
+
+        .date-btn span.day {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.8;
+        }
+
+        .date-btn:active { transform: scale(0.92); }
+        .date-btn.active {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 8px 16px rgba(255, 81, 47, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .game-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
         .game-card:active { transform: scale(0.98); background: rgba(30, 32, 38, 0.8); }
 
-        .status { text-align: center; font-size: 0.85rem; font-weight: 800; color: var(--live-red); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 2px; }
+        .status {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--live-red);
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
         .status.post-game { color: var(--text-muted); }
         .status.pre-game { color: var(--text-main); }
-        .teams-container { display: flex; justify-content: space-between; align-items: center; }
-        .team { display: flex; flex-direction: column; align-items: center; width: 40%; gap: 6px; }
-        .record { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 2px; background: rgba(0,0,0,0.3); padding: 3px 8px; border-radius: 10px; }
-        .logo { width: 64px; height: 64px; object-fit: contain; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.4)); margin-bottom: 4px; }
-        .team-name { font-size: 1.1rem; text-align: center; font-weight: 800; }
-        .score { font-size: 2.6rem; font-weight: 900; line-height: 1; margin-top: 4px; }
-        .score.dimmed { color: var(--text-muted); }
-        .vs { font-size: 1.2rem; color: rgba(255,255,255,0.2); font-weight: 800; }
 
-        /* --- MODALS & TABLES --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
-        .modal-overlay.show { display: flex; opacity: 1; }
-        .modal-content { background: linear-gradient(180deg, #18191e 0%, #101115 100%); width: 92%; max-width: 800px; max-height: 85vh; border-radius: 24px; padding: 25px; position: relative; box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.9); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; }
-        .close-btn { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: var(--text-muted); font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: all 0.2s; }
-        .close-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
-        .modal-header { text-align: center; font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-right: 30px; }
-        .modal-body { overflow-y: auto; padding-right: 5px; }
+        .teams-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+            gap: 6px;
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.4));
+            margin-bottom: 4px;
+        }
+
+        .team-name {
+            font-size: 1.1rem;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .score {
+            font-size: 2.6rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-top: 4px;
+        }
+        .score.dimmed { color: var(--text-muted); }
+
+        .vs {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 800;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: linear-gradient(180deg, #18191e 0%, #101115 100%);
+            width: 92%;
+            max-width: 800px;
+            max-height: 85vh;
+            border-radius: 24px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+        .modal-header {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-right: 30px;
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
         .modal-body::-webkit-scrollbar { width: 6px; }
         .modal-body::-webkit-scrollbar-track { background: transparent; }
-        .modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .modal-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
 
-        .team-box-title { font-size: 1.1rem; font-weight: 800; color: var(--accent-secondary); margin: 20px 0 12px 0; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
-        .team-box-title::after { content: ''; flex-grow: 1; height: 1px; background: var(--border-color); }
+        .team-box-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--accent-secondary);
+            margin: 20px 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .team-box-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
         .team-box-title:first-child { margin-top: 0; }
-        .table-container { width: 100%; overflow-x: auto; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.3); }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 500px; }
-        th { color: var(--text-muted); font-weight: 700; padding: 12px 10px; text-align: right; background: #121318; position: sticky; top: 0; z-index: 2; border-bottom: 1px solid var(--border-color); cursor: pointer; user-select: none; transition: color 0.2s; }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 500px;
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 700;
+            padding: 12px 10px;
+            text-align: right;
+            background: #121318;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+        }
+
         th:hover { color: #fff; }
         th.active-sort { color: var(--accent-secondary); }
-        td { padding: 12px 10px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-main); font-variant-numeric: tabular-nums; font-weight: 500; }
-        tr.starter td { background: rgba(255,255,255,0.02); }
-        th:first-child, td:first-child { text-align: left; font-weight: 700; position: sticky; left: 0; background-color: #121318; z-index: 3; box-shadow: 4px 0 8px rgba(0,0,0,0.3); }
+
+        td {
+            padding: 12px 10px;
+            text-align: right;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+        }
+
+        tr.starter td { background: rgba(255, 255, 255, 0.02); }
+
+        th:first-child,
+        td:first-child {
+            text-align: left;
+            font-weight: 700;
+            position: sticky;
+            left: 0;
+            background-color: #121318;
+            z-index: 3;
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.3);
+        }
+
         tr.starter td:first-child { background-color: #16171d; }
         th:first-child { z-index: 4; cursor: default; color: var(--text-muted); }
-        .player-pos { font-size: 0.65rem; color: var(--text-muted); margin-left: 6px; font-weight: 600; }
-        #loadingMsg { text-align: center; color: var(--text-muted); font-weight: 600; padding: 30px; }
-        
-        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+
+        .player-pos {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-left: 6px;
+            font-weight: 600;
+        }
+
+        #loadingMsg {
+            text-align: center;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 30px;
+        }
+
+        .standings-table td:first-child {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .standings-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
@@ -260,29 +731,30 @@
                 <a href="#" class="menu-item"></a>
             </div>
         </div>
-        
         <h1>Live NBA Tracker</h1>
-        
         <button id="refreshBtn" class="refresh-btn" onclick="forceRefresh()">↻ Sync</button>
     </div>
-    
+
     <div id="lastUpdated" class="last-updated">Connecting to API...</div>
-    
-    <!-- Updates Tab (existing news list) -->
+
+    <div id="statsTab" class="tab-content">
+        <div class="container" id="statsContainer">
+            <div id="loadingMsg">Loading standings...</div>
+        </div>
+    </div>
+
     <div id="homeTab" class="tab-content">
         <div class="container" id="newsContainer">
             <div id="loadingMsg">Fetching important game updates...</div>
         </div>
     </div>
 
-    <!-- New Home Tab with games + larger news -->
     <div id="homeTabNew" class="tab-content active">
         <div class="container" id="homeContainer">
             <div id="loadingMsg">Loading today's highlights...</div>
         </div>
     </div>
 
-    <!-- Scores Tab (schedule) -->
     <div id="scheduleTab" class="tab-content">
         <div class="date-slider-container">
             <div class="date-slider" id="dateSlider"></div>
@@ -290,7 +762,22 @@
         <div class="container" id="tracker"></div>
     </div>
 
+    <div id="oddsTab" class="tab-content">
+        <div class="container" id="oddsContainer">
+            <div id="loadingMsg">Loading upcoming win probabilities...</div>
+        </div>
+    </div>
+
     <nav class="bottom-nav">
+        <button class="nav-item" onclick="switchTab('stats')" id="btnStats">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+                <line x1="2" y1="20" x2="22" y2="20"></line>
+            </svg>
+            <span>Standings</span>
+        </button>
         <button class="nav-item" onclick="switchTab('home')" id="btnHome">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path>
@@ -300,8 +787,6 @@
             </svg>
             <span>Updates</span>
         </button>
-
-        <!-- New Home button in middle with house SVG -->
         <button class="nav-item active" onclick="switchTab('homeNew')" id="btnHomeNew">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -309,7 +794,6 @@
             </svg>
             <span>Home</span>
         </button>
-
         <button class="nav-item" onclick="switchTab('schedule')" id="btnSchedule">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -318,6 +802,14 @@
                 <line x1="3" y1="10" x2="21" y2="10"></line>
             </svg>
             <span>Scores</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('odds')" id="btnOdds">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
+                <path d="M12 18V6"></path>
+            </svg>
+            <span>Odds</span>
         </button>
     </nav>
 
@@ -332,92 +824,25 @@
     </div>
 
     <script>
-        // --- DROPDOWN MENU LOGIC ---
-        function toggleMenu(e) {
-            e.stopPropagation();
-            document.getElementById('moreMenu').classList.toggle('show');
-        }
-
-        window.addEventListener('click', function(e) {
-            const menu = document.getElementById('moreMenu');
-            if (menu.classList.contains('show') && !e.target.closest('.more-wrapper')) {
-                menu.classList.remove('show');
-            }
-        });
-        
-        // --- TAB SWITCHING LOGIC (updated for three tabs) ---
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-            
-            if(tabName === 'home') {
-                document.getElementById('homeTab').classList.add('active');
-                document.getElementById('btnHome').classList.add('active');
-                // Refresh news and optionally scroll to targeted article
-                fetchNews().then(() => {
-                    if (targetNewsHeadline) {
-                        scrollToNewsArticle(targetNewsHeadline);
-                        targetNewsHeadline = null;
-                    }
-                });
-            }
-            else if(tabName === 'homeNew') {
-                document.getElementById('homeTabNew').classList.add('active');
-                document.getElementById('btnHomeNew').classList.add('active');
-                fetchHomeData();
-            }
-            else if(tabName === 'schedule') {
-                document.getElementById('scheduleTab').classList.add('active');
-                document.getElementById('btnSchedule').classList.add('active');
-                startAutoRefresh(); // ensure refresh is running for scores
-            }
-        }
-
-        // --- RANDOMIZED LOADING SCREEN LOGIC ---
-        const allNbaTeams = [
-            'atl', 'bos', 'bkn', 'cha', 'chi', 'cle', 'dal', 'den', 'det', 'gs', 
-            'hou', 'ind', 'lac', 'lal', 'mem', 'mia', 'mil', 'min', 'no', 'ny', 
-            'okc', 'orl', 'phi', 'phx', 'por', 'sac', 'sa', 'tor', 'utah', 'wsh'
-        ];
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-        shuffleArray(allNbaTeams);
-
-        let logoIndex = 0;
-        const logoElement = document.getElementById('dynamicTeamLogo');
-        logoElement.src = `https://a.espncdn.com/i/teamlogos/nba/500/${allNbaTeams[logoIndex]}.png`;
-        
-        const logoInterval = setInterval(() => {
-            logoIndex++;
-            logoElement.src = `https://a.espncdn.com/i/teamlogos/nba/500/${allNbaTeams[logoIndex]}.png`;
-        }, 350);
-
-        setTimeout(() => {
-            clearInterval(logoInterval);
-            document.getElementById('loadingScreen').classList.add('hidden');
-            setTimeout(() => { document.getElementById('loadingScreen').style.display = 'none'; }, 600);
-            
-            // Initialize App Data
-            buildDateSlider();
-            fetchGames();
-            fetchNews();
-            fetchHomeData(); // load home tab data initially
-            startAutoRefresh();
-        }, 3000); 
-
         const BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard';
         const NEWS_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news';
-        
         let boxScoreCache = {};
-        let activeGameId = null; 
-        let latestEvents = []; 
+        let activeGameId = null;
+        let latestEvents = [];
         let fetchInterval = null;
-        let selectedDateObj = new Date(); 
+        let selectedDateObj = new Date();
+
+        function getCurrentNBAYear() {
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const year = now.getFullYear();
+            return (month >= 10) ? year + 1 : year;
+        }
+        let seasonYear = getCurrentNBAYear();
+        let standingsSeasonType = 2;
+        let standingsData = null;
+        let standingsSortColumn = 'W';
+        let standingsSortDesc = true;
 
         let currentSort = {
             away: { column: 'PTS', desc: true },
@@ -432,16 +857,95 @@
             { label: 'MIN', key: 'MIN' }
         ];
 
-        // Home tab data
         let homeGames = [];
         let homeNewsArticles = [];
-        let targetNewsHeadline = null; // used to scroll to article when switching to updates
+        let targetNewsHeadline = null;
+
+        // --- DROPDOWN MENU ---
+        function toggleMenu(e) {
+            e.stopPropagation();
+            document.getElementById('moreMenu').classList.toggle('show');
+        }
+
+        window.addEventListener('click', function(e) {
+            const menu = document.getElementById('moreMenu');
+            if (menu.classList.contains('show') && !e.target.closest('.more-wrapper')) {
+                menu.classList.remove('show');
+            }
+        });
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+
+            if (tabName === 'stats') {
+                document.getElementById('statsTab').classList.add('active');
+                document.getElementById('btnStats').classList.add('active');
+                fetchStats();
+            } else if (tabName === 'home') {
+                document.getElementById('homeTab').classList.add('active');
+                document.getElementById('btnHome').classList.add('active');
+                fetchNews().then(() => {
+                    if (targetNewsHeadline) {
+                        scrollToNewsArticle(targetNewsHeadline);
+                        targetNewsHeadline = null;
+                    }
+                });
+            } else if (tabName === 'homeNew') {
+                document.getElementById('homeTabNew').classList.add('active');
+                document.getElementById('btnHomeNew').classList.add('active');
+                fetchHomeData();
+            } else if (tabName === 'schedule') {
+                document.getElementById('scheduleTab').classList.add('active');
+                document.getElementById('btnSchedule').classList.add('active');
+                startAutoRefresh();
+            } else if (tabName === 'odds') {
+                document.getElementById('oddsTab').classList.add('active');
+                document.getElementById('btnOdds').classList.add('active');
+                fetchOdds();
+            }
+        }
+
+        const allNbaTeams = [
+            'atl','bos','bkn','cha','chi','cle','dal','den','det','gs',
+            'hou','ind','lac','lal','mem','mia','mil','min','no','ny',
+            'okc','orl','phi','phx','por','sac','sa','tor','utah','wsh'
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        shuffleArray(allNbaTeams);
+
+        let logoIndex = 0;
+        const logoElement = document.getElementById('dynamicTeamLogo');
+        logoElement.src = `https://a.espncdn.com/i/teamlogos/nba/500/${allNbaTeams[logoIndex]}.png`;
+
+        const logoInterval = setInterval(() => {
+            logoIndex++;
+            logoElement.src = `https://a.espncdn.com/i/teamlogos/nba/500/${allNbaTeams[logoIndex]}.png`;
+        }, 350);
+
+        setTimeout(() => {
+            clearInterval(logoInterval);
+            document.getElementById('loadingScreen').classList.add('hidden');
+            setTimeout(() => { document.getElementById('loadingScreen').style.display = 'none'; }, 600);
+
+            buildDateSlider();
+            fetchGames();
+            fetchNews();
+            fetchHomeData();
+            startAutoRefresh();
+        }, 3000);
 
         function formatAPIString(date) {
             const y = date.getFullYear();
             const m = String(date.getMonth() + 1).padStart(2, '0');
             const d = String(date.getDate()).padStart(2, '0');
-            return `${y}${m}${d}`; 
+            return `${y}${m}${d}`;
         }
 
         function buildDateSlider() {
@@ -449,14 +953,11 @@
             slider.innerHTML = '';
             const today = new Date();
             let todayBtn = null;
-
             for (let i = -5; i <= 5; i++) {
                 const loopDate = new Date(today);
                 loopDate.setDate(today.getDate() + i);
-                
                 const btn = document.createElement('div');
                 btn.className = 'date-btn';
-                
                 if (i === 0) {
                     btn.innerHTML = `<span class="day">Today</span>${loopDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
                     btn.classList.add('active');
@@ -464,11 +965,9 @@
                 } else {
                     btn.innerHTML = `<span class="day">${loopDate.toLocaleDateString('en-US', { weekday: 'short' })}</span>${loopDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
                 }
-
                 btn.onclick = () => selectDate(loopDate, btn);
                 slider.appendChild(btn);
             }
-
             setTimeout(() => {
                 if (todayBtn) {
                     const scrollLeft = todayBtn.offsetLeft - (slider.clientWidth / 2) + (todayBtn.clientWidth / 2);
@@ -480,15 +979,12 @@
         async function selectDate(newDate, btnElement) {
             selectedDateObj = newDate;
             document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
-            if(btnElement) btnElement.classList.add('active');
-            
+            if (btnElement) btnElement.classList.add('active');
             document.getElementById('tracker').innerHTML = '<div id="loadingMsg">Fetching matchups...</div>';
-            
             await fetchGames();
-            startAutoRefresh(); 
+            startAutoRefresh();
         }
 
-        /* --- FETCH & FILTER HIGHER SIGNAL NEWS --- */
         async function fetchNews() {
             try {
                 const res = await fetch(NEWS_URL);
@@ -503,32 +999,27 @@
         function renderNews(articles) {
             const container = document.getElementById('newsContainer');
             container.innerHTML = '';
-
             if (articles.length === 0) {
                 container.innerHTML = '<div id="loadingMsg">No recent news found.</div>';
                 return;
             }
-
             const keywords = ['score', 'win', 'loss', 'beat', 'points', 'stats', 'recap', 'highlights', 'trade', 'injury', 'draft', 'finals', 'playoffs', 'championship'];
-            
             let importantArticles = articles.filter(article => {
                 const textToCheck = (article.headline + " " + article.description).toLowerCase();
                 return keywords.some(kw => textToCheck.includes(kw));
             });
-
-            if (importantArticles.length === 0) importantArticles = articles.slice(0, 3);
+            if (importantArticles.length === 0) importantArticles = articles.slice(0, 5);
             importantArticles.sort((a, b) => new Date(b.published) - new Date(a.published));
+            importantArticles = importantArticles.slice(0, 5);
 
             importantArticles.forEach((article, index) => {
                 const imgUrl = (article.images && article.images.length > 0) ? article.images[0].url : 'https://a.espncdn.com/i/teamlogos/nba/500/nba.png';
                 const pubDate = new Date(article.published).toLocaleString('en-US', { month: 'short', day: 'numeric' });
-                
                 const card = document.createElement('div');
                 card.className = 'news-card';
                 card.id = 'news-' + index;
                 card.setAttribute('data-headline', article.headline);
                 card.onclick = () => window.open(article.links.web.href, '_blank');
-
                 card.innerHTML = `
                     <img class="news-image" src="${imgUrl}" alt="NBA News">
                     <div class="news-content">
@@ -543,7 +1034,6 @@
         }
 
         function scrollToNewsArticle(headline) {
-            // Find the news card with matching headline and scroll into view
             const cards = document.querySelectorAll('#newsContainer .news-card');
             for (let card of cards) {
                 if (card.getAttribute('data-headline') === headline) {
@@ -555,28 +1045,57 @@
             }
         }
 
-        // --- HOME TAB DATA & RENDERING ---
+        // --- HOME TAB (intelligent mix with dates) ---
         async function fetchHomeData() {
             try {
-                // Fetch today's games
                 const todayStr = formatAPIString(new Date());
-                const gamesRes = await fetch(`${BASE_URL}?dates=${todayStr}`);
-                const gamesData = await gamesRes.json();
-                const allEvents = gamesData.events || [];
-                
-                // Sort: live games first, then upcoming (pre), ignore finished?
-                const liveAndUpcoming = allEvents.filter(e => {
-                    const state = e.status.type.state;
-                    return state === 'in' || state === 'pre';
-                });
-                // Take top 3
-                homeGames = liveAndUpcoming.slice(0, 3);
-                
-                // Fetch news for home tab
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayStr = formatAPIString(yesterday);
+
+                const [todayRes, yesterdayRes] = await Promise.all([
+                    fetch(`${BASE_URL}?dates=${todayStr}`),
+                    fetch(`${BASE_URL}?dates=${yesterdayStr}`)
+                ]);
+                const todayData = await todayRes.json();
+                const yesterdayData = await yesterdayRes.json();
+
+                const allEvents = [...(todayData.events || []), ...(yesterdayData.events || [])];
+                const uniqueEvents = [];
+                const ids = new Set();
+                for (let e of allEvents) {
+                    if (!ids.has(e.id)) {
+                        ids.add(e.id);
+                        uniqueEvents.push(e);
+                    }
+                }
+
+                const live = uniqueEvents.filter(e => e.status.type.state === 'in');
+                const upcoming = uniqueEvents.filter(e => e.status.type.state === 'pre');
+                const recent = uniqueEvents.filter(e => e.status.type.state === 'post')
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                let gamesToShow = [];
+
+                if (live.length > 0) {
+                    // live games: show up to 3 live, then up to 2 recent
+                    gamesToShow = live.slice(0, 3);
+                    const remainingSlots = 5 - gamesToShow.length;
+                    if (remainingSlots > 0 && recent.length > 0) {
+                        gamesToShow = gamesToShow.concat(recent.slice(0, remainingSlots));
+                    }
+                } else {
+                    // no live: show one upcoming, then up to 3 recent
+                    if (upcoming.length > 0) {
+                        gamesToShow.push(upcoming[0]);
+                    }
+                    gamesToShow = gamesToShow.concat(recent.slice(0, 3));
+                }
+
+                homeGames = gamesToShow;
                 const newsRes = await fetch(NEWS_URL);
                 const newsData = await newsRes.json();
                 let articles = newsData.articles || [];
-                
                 const keywords = ['score', 'win', 'loss', 'beat', 'points', 'stats', 'recap', 'highlights', 'trade', 'injury', 'draft', 'finals', 'playoffs', 'championship'];
                 let importantArticles = articles.filter(a => {
                     const t = (a.headline + " " + a.description).toLowerCase();
@@ -585,7 +1104,7 @@
                 if (importantArticles.length < 2) importantArticles = articles.slice(0, 2);
                 importantArticles.sort((a, b) => new Date(b.published) - new Date(a.published));
                 homeNewsArticles = importantArticles.slice(0, 2);
-                
+
                 renderHomeScreen();
             } catch (err) {
                 console.error("Home fetch error:", err);
@@ -596,30 +1115,34 @@
         function renderHomeScreen() {
             const container = document.getElementById('homeContainer');
             container.innerHTML = '';
-            
-            // Games section
             if (homeGames.length === 0) {
-                container.innerHTML = '<div id="loadingMsg">No live or upcoming games today.</div>';
+                container.innerHTML = '<div id="loadingMsg">No live or recent games.</div>';
             } else {
                 homeGames.forEach(game => {
                     const comp = game.competitions[0];
                     const away = comp.competitors.find(c => c.homeAway === 'away');
                     const home = comp.competitors.find(c => c.homeAway === 'home');
-                    const status = game.status.type.shortDetail;
                     const state = game.status.type.state;
+                    let statusText = game.status.type.shortDetail;
+                    const gameDate = new Date(game.date);
+                    const dateStr = gameDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                    if (state === 'post') {
+                        statusText = `Final – ${dateStr}`;
+                    } else if (state === 'pre') {
+                        statusText = `Upcoming – ${dateStr}`;
+                    }
+
                     let statusClass = state === 'in' ? 'live-red' : (state === 'post' ? 'post-game' : 'pre-game');
-                    
                     const card = document.createElement('div');
                     card.className = 'game-card';
                     card.style.marginBottom = '20px';
                     card.setAttribute('data-gameid', game.id);
                     card.onclick = () => {
-                        // Switch to Scores tab with today's date and open modal
                         switchToScoresAndOpenModal(game.id, `${away.team.abbreviation} vs ${home.team.abbreviation}`);
                     };
-                    
                     card.innerHTML = `
-                        <div class="status ${statusClass}">${status}</div>
+                        <div class="status ${statusClass}">${statusText}</div>
                         <div class="teams-container">
                             <div class="team">
                                 <img class="logo" src="${away.team.logo}" alt="${away.team.abbreviation}">
@@ -637,8 +1160,6 @@
                     container.appendChild(card);
                 });
             }
-            
-            // News section (larger cards)
             if (homeNewsArticles.length > 0) {
                 const newsHeader = document.createElement('div');
                 newsHeader.style.fontSize = '1.2rem';
@@ -647,20 +1168,16 @@
                 newsHeader.style.color = 'var(--text-main)';
                 newsHeader.innerText = 'Latest News';
                 container.appendChild(newsHeader);
-                
                 homeNewsArticles.forEach(article => {
                     const imgUrl = (article.images && article.images.length > 0) ? article.images[0].url : 'https://a.espncdn.com/i/teamlogos/nba/500/nba.png';
                     const pubDate = new Date(article.published).toLocaleString('en-US', { month: 'short', day: 'numeric' });
-                    
                     const card = document.createElement('div');
                     card.className = 'news-card home-news-card';
                     card.style.marginBottom = '20px';
                     card.onclick = () => {
-                        // Switch to Updates tab and scroll to this article
                         targetNewsHeadline = article.headline;
                         switchTab('home');
                     };
-                    
                     card.innerHTML = `
                         <img class="news-image" src="${imgUrl}" alt="NBA News">
                         <div class="news-content">
@@ -676,15 +1193,12 @@
         }
 
         async function switchToScoresAndOpenModal(gameId, title) {
-            // Set selected date to today, switch to schedule tab, wait for fetch, then open modal
             selectedDateObj = new Date();
-            // Update date slider UI
             document.querySelectorAll('.date-btn').forEach(btn => {
                 const btnDate = new Date(btn.textContent.includes('Today') ? new Date() : btn.textContent);
                 btn.classList.remove('active');
                 if (btnDate.toDateString() === selectedDateObj.toDateString()) btn.classList.add('active');
             });
-            
             switchTab('schedule');
             document.getElementById('tracker').innerHTML = '<div id="loadingMsg">Loading game...</div>';
             await fetchGames();
@@ -698,15 +1212,15 @@
                 const response = await fetch(url);
                 const data = await response.json();
                 latestEvents = data.events;
-                
+                if (latestEvents.length > 0 && latestEvents[0].season) {
+                    seasonYear = latestEvents[0].season.year || getCurrentNBAYear();
+                }
                 if (activeGameId) {
                     await fetchBoxScoreData(activeGameId);
                 }
-                
                 updateTimestamp();
                 renderMainScreen();
                 if (activeGameId) renderModalContent();
-                
             } catch (error) {
                 console.error("Error fetching game data:", error);
                 document.getElementById('lastUpdated').innerText = "Failed to update. Check connection.";
@@ -745,26 +1259,20 @@
             }
         }
 
-        /* --- COMPLETED RENDER MAIN SCREEN SCRIPT --- */
         function renderMainScreen() {
             const tracker = document.getElementById('tracker');
-            
             if (!latestEvents || latestEvents.length === 0) {
                 tracker.innerHTML = '<div id="loadingMsg">No games scheduled for this date.</div>';
                 return;
             }
-            
             tracker.innerHTML = '';
-            
             latestEvents.forEach(game => {
                 const comp = game.competitions[0];
                 const away = comp.competitors.find(c => c.homeAway === 'away');
                 const home = comp.competitors.find(c => c.homeAway === 'home');
                 const status = game.status.type.shortDetail;
-                const state = game.status.type.state; 
-
+                const state = game.status.type.state;
                 let statusClass = state === 'in' ? 'live-red' : (state === 'post' ? 'post-game' : 'pre-game');
-
                 tracker.innerHTML += `
                     <div class="game-card" onclick="openModal('${game.id}', '${away.team.abbreviation} vs ${home.team.abbreviation}')">
                         <div class="status ${statusClass}">${status}</div>
@@ -788,60 +1296,48 @@
 
         async function openModal(gameId, title) {
             activeGameId = gameId;
-            document.body.style.overflow = 'hidden'; 
-
+            document.body.style.overflow = 'hidden';
             const game = latestEvents.find(g => g.id === gameId);
             const comp = game.competitions[0];
             const awayTeam = comp.competitors.find(c => c.homeAway === 'away').team;
             const homeTeam = comp.competitors.find(c => c.homeAway === 'home').team;
-
             const clashScreen = document.getElementById('clashScreen');
             const el1 = document.getElementById('clashEl1');
             const el2 = document.getElementById('clashEl2');
             const el3 = document.getElementById('clashEl3');
-
             document.getElementById('clashAwayLogo').src = awayTeam.logo;
             document.getElementById('clashHomeLogo').src = homeTeam.logo;
-
             el1.style.animation = 'none';
             el2.style.animation = 'none';
             el3.style.animation = 'none';
             clashScreen.style.opacity = '1';
             clashScreen.style.display = 'flex';
-
-            setTimeout(() => { 
-                el1.style.animation = 'slamFade 1s forwards'; 
+            setTimeout(() => {
+                el1.style.animation = 'slamFade 1s forwards';
                 clashScreen.style.animation = 'screenShake 0.3s ease-in-out';
             }, 0);
-            
-            setTimeout(() => { 
-                el2.style.animation = 'slamFade 1s forwards'; 
-                clashScreen.style.animation = 'none'; 
+            setTimeout(() => {
+                el2.style.animation = 'slamFade 1s forwards';
+                clashScreen.style.animation = 'none';
                 setTimeout(() => clashScreen.style.animation = 'screenShake 0.3s ease-in-out', 10);
             }, 1000);
-            
-            setTimeout(() => { 
-                el3.style.animation = 'slamFade 1s forwards'; 
-                clashScreen.style.animation = 'none'; 
+            setTimeout(() => {
+                el3.style.animation = 'slamFade 1s forwards';
+                clashScreen.style.animation = 'none';
                 setTimeout(() => clashScreen.style.animation = 'screenShake 0.3s ease-in-out', 10);
             }, 2000);
-
             document.getElementById('modalHeader').innerText = title;
             document.getElementById('modalBody').innerHTML = '<div id="loadingMsg">Fetching full roster stats...</div>';
-            
             await fetchBoxScoreData(gameId);
-
             setTimeout(() => {
                 clashScreen.style.opacity = '0';
                 setTimeout(() => { clashScreen.style.display = 'none'; }, 300);
-
                 const overlay = document.getElementById('modalOverlay');
                 overlay.classList.add('show');
                 renderModalContent();
             }, 3000);
         }
 
-        /* --- COMPLETED MODAL DATA & TABLE LOGIC --- */
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('show');
             document.body.style.overflow = 'auto';
@@ -852,27 +1348,22 @@
             if (!activeGameId) return;
             const container = document.getElementById('modalBody');
             const data = boxScoreCache[activeGameId];
-
             if (!data) {
                 container.innerHTML = '<div id="loadingMsg">Box score not available yet.</div>';
                 return;
             }
-
             const game = latestEvents.find(g => g.id === activeGameId);
             const comp = game.competitions[0];
             const awayTeamInfo = comp.competitors.find(c => c.homeAway === 'away').team;
             const homeTeamInfo = comp.competitors.find(c => c.homeAway === 'home').team;
-
             const awayData = data.find(team => team.team.id === awayTeamInfo.id);
             const homeData = data.find(team => team.team.id === homeTeamInfo.id);
-
             container.innerHTML = `
                 <div class="team-box-title">
                     <img src="${awayTeamInfo.logo}" style="width:24px;height:24px;object-fit:contain;">
                     ${awayTeamInfo.displayName}
                 </div>
                 ${generateTableHTML(awayData, 'away')}
-                
                 <div class="team-box-title">
                     <img src="${homeTeamInfo.logo}" style="width:24px;height:24px;object-fit:contain;">
                     ${homeTeamInfo.displayName}
@@ -883,32 +1374,26 @@
 
         function generateTableHTML(teamData, side) {
             if (!teamData || !teamData.statistics || teamData.statistics.length === 0) return '<div id="loadingMsg">No stats available</div>';
-            
             const statsObj = teamData.statistics[0];
-            const labels = statsObj.labels; 
+            const labels = statsObj.labels;
             const athletes = statsObj.athletes;
-
             let html = '<div class="table-container"><table><thead><tr><th>Player</th>';
-            
             STAT_COLUMNS.forEach(col => {
                 const isActive = currentSort[side].column === col.key;
                 const arrow = isActive ? (currentSort[side].desc ? ' ↓' : ' ↑') : '';
                 html += `<th class="${isActive ? 'active-sort' : ''}" onclick="handleSort('${side}', '${col.key}')">${col.label}${arrow}</th>`;
             });
             html += '</tr></thead><tbody>';
-
             let playerRows = athletes.map(ath => {
                 const p = ath.athlete;
-                const stats = ath.stats; 
+                const stats = ath.stats;
                 let rowData = { name: p.shortName, pos: p.position ? p.position.abbreviation : '', isStarter: ath.starter };
-                
                 STAT_COLUMNS.forEach(col => {
                     const labelIndex = labels.indexOf(col.key);
                     rowData[col.key] = labelIndex !== -1 ? stats[labelIndex] : '-';
                 });
                 return rowData;
             });
-
             const sortKey = currentSort[side].column;
             const sortDesc = currentSort[side].desc;
             playerRows.sort((a, b) => {
@@ -918,7 +1403,6 @@
                 if (valA > valB) return sortDesc ? -1 : 1;
                 return 0;
             });
-
             playerRows.forEach(p => {
                 html += `<tr class="${p.isStarter ? 'starter' : ''}">
                     <td>${p.name}<span class="player-pos">${p.pos}</span></td>`;
@@ -927,7 +1411,6 @@
                 });
                 html += `</tr>`;
             });
-
             html += '</tbody></table></div>';
             return html;
         }
@@ -940,6 +1423,207 @@
                 currentSort[side].desc = true;
             }
             renderModalContent();
+        }
+
+        // --- STANDINGS TAB (sortable columns) ---
+        async function fetchStats() {
+            const container = document.getElementById('statsContainer');
+            container.innerHTML = '<div id="loadingMsg">Loading standings...</div>';
+            try {
+                const url = `https://site.web.api.espn.com/apis/v2/sports/basketball/nba/standings?region=us&lang=en&contentorigin=espn&season=${seasonYear}&seasontype=${standingsSeasonType}`;
+                const res = await fetch(url);
+                const data = await res.json();
+                let children = data.children || [];
+
+                if (children.length === 0 && standingsSeasonType === 3) {
+                    const fallbackUrl = `https://site.web.api.espn.com/apis/v2/sports/basketball/nba/standings?region=us&lang=en&contentorigin=espn&season=${seasonYear}&seasontype=2`;
+                    const fallbackRes = await fetch(fallbackUrl);
+                    const fallbackData = await fallbackRes.json();
+                    children = fallbackData.children || [];
+                    if (children.length > 0) {
+                        container.innerHTML = '<div style="text-align:center;color:var(--text-muted);margin-bottom:15px;">Playoff standings not yet available — showing regular season standings</div>';
+                    }
+                }
+
+                if (children.length === 0) {
+                    container.innerHTML = '<div id="loadingMsg">No standings data available for this season.</div>';
+                    return;
+                }
+
+                standingsData = children;
+                renderStandings();
+            } catch (err) {
+                console.error('Standings fetch error:', err);
+                container.innerHTML = '<div id="loadingMsg">Unable to load standings.</div>';
+            }
+        }
+
+        function setSeasonType(type) {
+            standingsSeasonType = type;
+            standingsSortColumn = 'W';
+            standingsSortDesc = true;
+            fetchStats();
+        }
+
+        function setStandingsSort(column) {
+            if (standingsSortColumn === column) {
+                standingsSortDesc = !standingsSortDesc;
+            } else {
+                standingsSortColumn = column;
+                standingsSortDesc = true;
+            }
+            renderStandings();
+        }
+
+        function getStandingsSortValue(entry, column) {
+            const stats = entry.stats;
+            const getStatRaw = (name) => stats.find(s => s.name === name);
+            switch (column) {
+                case 'W': return parseInt(getStatRaw('wins')?.value || '0');
+                case 'L': return parseInt(getStatRaw('losses')?.value || '0');
+                case 'PCT': return parseFloat(getStatRaw('winPercent')?.value || '0');
+                case 'GB': return parseFloat(getStatRaw('gamesBehind')?.value || '0');
+                case 'STRK': {
+                    const streakStr = getStatRaw('streak')?.displayValue || '';
+                    const num = parseInt(streakStr.replace(/\D/g, '')) || 0;
+                    return num;
+                }
+                default: return 0;
+            }
+        }
+
+        function renderStandings() {
+            const container = document.getElementById('statsContainer');
+            if (!standingsData || standingsData.length === 0) {
+                container.innerHTML = '<div id="loadingMsg">No data to display.</div>';
+                return;
+            }
+
+            let html = '';
+            html += `<div style="display:flex;justify-content:center;gap:10px;margin-bottom:20px;">
+                <button class="date-btn ${standingsSeasonType===2?'active':''}" onclick="setSeasonType(2)">Regular Season</button>
+                <button class="date-btn ${standingsSeasonType===3?'active':''}" onclick="setSeasonType(3)">Playoffs</button>
+            </div>`;
+
+            const columnHeaders = ['W', 'L', 'PCT', 'GB', 'STRK'];
+            const arrow = standingsSortDesc ? ' ↓' : ' ↑';
+
+            for (let conf of standingsData) {
+                const confName = conf.name;
+                const entries = [...conf.standings.entries];
+                entries.sort((a, b) => {
+                    const aVal = getStandingsSortValue(a, standingsSortColumn);
+                    const bVal = getStandingsSortValue(b, standingsSortColumn);
+                    if (aVal < bVal) return standingsSortDesc ? 1 : -1;
+                    if (aVal > bVal) return standingsSortDesc ? -1 : 1;
+                    return 0;
+                });
+
+                html += `<div class="team-box-title" style="margin-top:20px;">${confName}</div>`;
+                html += `<div class="table-container"><table class="standings-table"><thead><tr><th>Team</th>`;
+                for (let col of columnHeaders) {
+                    const isActive = standingsSortColumn === col;
+                    const displayArrow = isActive ? arrow : '';
+                    html += `<th class="${isActive ? 'active-sort' : ''}" onclick="setStandingsSort('${col}')">${col}${displayArrow}</th>`;
+                }
+                html += `</tr></thead><tbody>`;
+
+                for (let entry of entries) {
+                    const team = entry.team;
+                    const stats = entry.stats;
+                    const getStat = (name) => {
+                        const s = stats.find(s => s.name === name);
+                        return s ? s.displayValue : '-';
+                    };
+
+                    let logoUrl = team.logo;
+                    if (!logoUrl || logoUrl === '') {
+                        const abbr = (team.abbreviation || '').toLowerCase();
+                        logoUrl = `https://a.espncdn.com/i/teamlogos/nba/500/${abbr}.png`;
+                    }
+
+                    html += `<tr>
+                        <td style="display:flex;align-items:center;gap:8px;">
+                            <img src="${logoUrl}" style="width:24px;height:24px;object-fit:contain;">
+                            <span>${team.displayName}</span>
+                        </td>
+                        <td>${getStat('wins')}</td>
+                        <td>${getStat('losses')}</td>
+                        <td>${getStat('winPercent')}</td>
+                        <td>${getStat('gamesBehind')}</td>
+                        <td>${getStat('streak')}</td>
+                    </tr>`;
+                }
+                html += `</tbody></table></div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        // --- ODDS TAB (unchanged) ---
+        async function fetchOdds() {
+            const container = document.getElementById('oddsContainer');
+            container.innerHTML = '<div id="loadingMsg">Loading upcoming win probabilities...</div>';
+            const today = new Date();
+            const dates = [];
+            for (let i = 0; i < 3; i++) {
+                const d = new Date(today);
+                d.setDate(today.getDate() + i);
+                dates.push(formatAPIString(d));
+            }
+            try {
+                const promises = dates.map(d => fetch(`${BASE_URL}?dates=${d}`));
+                const responses = await Promise.all(promises);
+                const dataArrays = await Promise.all(responses.map(r => r.json()));
+                let allGames = [];
+                dataArrays.forEach(data => {
+                    const events = data.events || [];
+                    events.forEach(e => { allGames.push(e); });
+                });
+                const upcoming = allGames.filter(e => e.status.type.state === 'pre');
+                upcoming.sort((a, b) => new Date(a.date) - new Date(b.date));
+                if (upcoming.length === 0) {
+                    container.innerHTML = '<div id="loadingMsg">No upcoming games found for the next 3 days.</div>';
+                    return;
+                }
+                container.innerHTML = upcoming.map(game => {
+                    const comp = game.competitions[0];
+                    const away = comp.competitors.find(c => c.homeAway === 'away');
+                    const home = comp.competitors.find(c => c.homeAway === 'home');
+                    const awayWins = away.records?.[0]?.summary ? parseInt(away.records[0].summary.split('-')[0]) : 0;
+                    const awayLosses = away.records?.[0]?.summary ? parseInt(away.records[0].summary.split('-')[1]) : 0;
+                    const homeWins = home.records?.[0]?.summary ? parseInt(home.records[0].summary.split('-')[0]) : 0;
+                    const homeLosses = home.records?.[0]?.summary ? parseInt(home.records[0].summary.split('-')[1]) : 0;
+                    let awayProb = 50, homeProb = 50;
+                    if (awayWins + awayLosses > 0 && homeWins + homeLosses > 0) {
+                        const awayWP = awayWins / (awayWins + awayLosses);
+                        const homeWP = homeWins / (homeWins + homeLosses);
+                        awayProb = (awayWP * (1 - homeWP)) / (awayWP * (1 - homeWP) + homeWP * (1 - awayWP)) * 100;
+                        homeProb = 100 - awayProb;
+                    }
+                    const gameDate = new Date(game.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+                    return `
+                        <div class="game-card" style="cursor:default;">
+                            <div style="text-align:center;font-weight:700;margin-bottom:12px;color:var(--text-muted);">${gameDate}</div>
+                            <div class="teams-container">
+                                <div class="team">
+                                    <img class="logo" src="${away.team.logo}" alt="${away.team.abbreviation}">
+                                    <div class="team-name">${away.team.abbreviation}</div>
+                                    <div class="odds-percent">${awayProb.toFixed(1)}%</div>
+                                </div>
+                                <div class="vs">VS</div>
+                                <div class="team">
+                                    <img class="logo" src="${home.team.logo}" alt="${home.team.abbreviation}">
+                                    <div class="team-name">${home.team.abbreviation}</div>
+                                    <div class="odds-percent">${homeProb.toFixed(1)}%</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error('Odds fetch error:', err);
+                container.innerHTML = '<div id="loadingMsg">Unable to load odds.</div>';
+            }
         }
     </script>
 </body>
